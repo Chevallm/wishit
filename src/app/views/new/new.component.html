@@ -4,29 +4,34 @@
         <wi-icon icon="pencil"></wi-icon>
     </p>
 </section>
-<section>
-    <section class="my-2 flex items-baseline gap-4 bg-white p-4 rounded-md shadow-sm hover:shadow-md w-full">
+<section class="wish-list" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="drop($event)">
+    <section
+        *ngFor="let wish of wishs"
+        cdkDrag
+        class="wish my-2 flex items-baseline gap-4 bg-white p-4 rounded-md shadow-sm hover:shadow-md w-full">
         <div class="grip">
             <wi-icon icon="menu-dots-vertical"></wi-icon>
         </div>
         <div class="flex-1">
-            PlayStation 5
+            {{wish.title}}
         </div>
         <div class="flex-1">
-            {{500 | currency:'EUR'}}
+            {{wish.price | currency:'EUR'}}
         </div>
-        <wi-button color="primary">I take it</wi-button>
+            <wi-button>Taken</wi-button>
     </section>
-    <section class="my-2 flex items-baseline gap-4 bg-white p-4 rounded-md shadow-sm hover:shadow-md w-full">
+    <section
+        cdkDrag
+        class="wish my-2 flex items-baseline gap-4 bg-white p-4 rounded-md shadow-sm hover:shadow-md w-full">
         <div class="grip">
             <wi-icon icon="menu-dots-vertical"></wi-icon>
         </div>
         <div class="flex-1">
-            Maillot de l'équipe de France
+            <wi-input placeholder="Item name"></wi-input>
         </div>
         <div class="flex-1">
-            {{89.99 | currency:'EUR'}}
+            <wi-input placeholder="Price"></wi-input>
         </div>
-        <wi-button [disabled]="true">Taken</wi-button>
+        <wi-button (click)="add('item', 0)">Add</wi-button>
     </section>
 </section>
