@@ -70,3 +70,24 @@ app-root {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+input {
+    border: 0;
+    border-bottom: 1px solid rgba(0,0,0,.3);
+    height: 40px;
+    padding: 0 .5em;
+    border-radius: 4px;
+    font-family: inherit;
+    transition: border 0.2s ease-in-out;
+
+    &:focus {
+        outline: none;
+        border-bottom-width: 2px;
+        border-bottom-color: rgba(0,0,0,.8);
+        box-shadow: $shadow;
+    }
+
+    &.ng-invalid {
+        border-bottom-color: red;
+    }
+}

@@ -8,5 +8,6 @@ import { Component, Input } from '@angular/core';
 export class InputComponent {
 
   @Input() placeholder = '';
+  @Input() type = 'text';
 
 }

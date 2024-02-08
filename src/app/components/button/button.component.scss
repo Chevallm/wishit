@@ -14,4 +14,10 @@
     &:hover {
         box-shadow: $shadow2;
     }
+
+    &:disabled {
+        box-shadow: none !important;
+        background-color: rgba(0, 0, 0, 0.1) !important;
+        cursor: default;
+    }
 }
