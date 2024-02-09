@@ -13,6 +13,7 @@ import { NewComponent } from './views/new/new.component';
 import { FiPipe, IconComponent } from './components/icon/icon.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { WishComponent } from './components/wish/wish.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NewComponent,
     IconComponent,
     FiPipe,
+    WishComponent,
   ],
   imports: [
     BrowserModule,

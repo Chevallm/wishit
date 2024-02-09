@@ -88,6 +88,9 @@ input {
     }
 
     &.ng-invalid {
-        border-bottom-color: red;
+        &.ng-touched,
+        &.ng-dirty {
+            border-bottom-color: red;
+        }
     }
 }

@@ -8,35 +8,26 @@
     </wi-button>
 </section>
 <section class="wish-list" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="drop($event)">
-    <section
-        *ngFor="let wish of wishs"
-        cdkDrag
-        class="wish my-2 flex items-baseline gap-4 bg-white p-4 rounded-md shadow-sm hover:shadow-md w-full">
-        <div class="grip">
-            <wi-icon icon="menu-dots-vertical"></wi-icon>
-        </div>
-        <div class="flex-1">
-            {{wish.title}}
-        </div>
-        <div class="flex-1">
-            {{wish.price | currency:'EUR'}}
-        </div>
-        <ng-container *ngIf="wish.gifter; else takeRef">
-            <wi-button [disabled]="true">Taken</wi-button>
-        </ng-container>
-        <ng-template #takeRef>
-            <wi-button color="primary">Take it</wi-button>
-        </ng-template>
-    </section>
-    <section
-        [formGroup]="form"
-        class="wish my-2 flex items-baseline gap-4 bg-white p-4 rounded-md shadow-sm hover:shadow-md w-full">
-        <div class="flex-1">
-            <input #title placeholder="Item name*" required formControlName="title">
-        </div>
-        <div class="flex-1">
-            <input #price placeholder="Price" type="number" formControlName="price">
-        </div>
-        <wi-button (click)="add(title.value, price.value)">Add</wi-button>
+    <ng-container *ngFor="let wish of wishs">
+        <wi-wish [wish]="wish"></wi-wish>
+    </ng-container>
+    
+    <section class="wish my-2 bg-white p-4 rounded-md shadow-sm hover:shadow-md w-full">
+        <form [formGroup]="form" (submit)="add()" class="flex items-baseline gap-4">
+            <div class="flex-1 flex flex-col">
+                <input placeholder="Item name*" required formControlName="title">
+                <section *ngIf="form.controls.title.dirty || form.controls.title.touched" class="text-red-500 italic">
+                    <span *ngIf="form.controls.title.errors?.['required']">item name is required</span>
+                </section>
+                
+            </div>
+            <div class="flex-1 flex flex-col">
+                <input placeholder="Price" type="number" formControlName="price">
+                <section *ngIf="form.controls.price.dirty || form.controls.price.touched" class="text-red-500 italic">
+                    <span *ngIf="form.controls.price.errors?.['min']">price can't be negative</span>
+                </section>
+            </div>
+            <wi-button (click)="add()" [disabled]="form.invalid" title="add to list">Add</wi-button>
+        </form>
     </section>
 </section>
