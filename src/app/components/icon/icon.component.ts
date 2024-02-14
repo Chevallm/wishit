@@ -6,7 +6,7 @@ import { Component, Pipe, PipeTransform, Input } from '@angular/core';
 export class FiPipe implements PipeTransform {
 
   transform(value: string, ...args: any[]): string {
-    return `fi fi-rr-${value}`;
+    return `fi ${value}`;
   }
 }
 

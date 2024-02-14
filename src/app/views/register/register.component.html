@@ -1,0 +1,45 @@
+<section class="bg-white p-4 rounded">
+    <form class="form" [formGroup]="form" (ngSubmit)="register()">
+
+        <section class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" autocomplete="email" formControlName="email">
+            <section class="text-red-500" *ngIf="email | shouldShowErrors">
+                <p *ngIf="email.errors?.['required']">Email is required</p>
+                <p *ngIf="email.errors?.['email']">Email is malformated</p>
+            </section>
+        </section>
+
+        <section class="form-field">
+            <label for="name">Displayed name</label>
+            <input type="text" id="name" autocomplete="name" formControlName="name">
+        </section>
+
+        <section class="form-field">
+            <label for="password">Password</label>
+            <input type="password" id="password" autocomplete="current-password" formControlName="password">
+            <section class="text-red-500" *ngIf="password | shouldShowErrors">
+                <ul>
+                    <li *ngFor="let error of (form.controls.password.errors | iterableValidationErrors)">{{error}}</li>
+                </ul>
+            </section>
+        </section>
+
+        <section class="form-field">
+            <label for="confirm-password">Confirm password</label>
+            <input type="password" id="confirm-password" autocomplete="off" formControlName="confirmPassword">
+            <section class="text-red-500" *ngIf="confirmPassword | shouldShowErrors">
+                <p *ngIf="confirmPassword.errors?.['confirmPassword']">Passwords must match</p>
+            </section>
+        </section>
+
+        <section class="self-center">
+            <wi-button color="primary" type="submit">Register</wi-button>
+            <wi-button>Register with Google&nbsp;<wi-icon icon="fi-brands-google"></wi-icon></wi-button>
+        </section>
+
+        <hr class="self-center w-1/2"/>
+
+        <a class="self-center" routerLink="/login">Sign in instead</a>
+    </form>
+</section>

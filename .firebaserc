@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "wishit-8b792": {
+      "hosting": {
+        "wishit": [
+          "wishit-8b792"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "wishit-8b792"
+  }
+}

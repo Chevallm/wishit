@@ -3,8 +3,8 @@
         <input type="text" [(ngModel)]="listTitle">
     </p>
     <wi-button color="primary">
-        Share
-        <wi-icon icon="share"></wi-icon>
+        Save
+        <wi-icon icon="fi-rr-disk"></wi-icon>
     </wi-button>
 </section>
 <section class="wish-list" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="drop($event)">
@@ -27,7 +27,7 @@
                     <span *ngIf="form.controls.price.errors?.['min']">price can't be negative</span>
                 </section>
             </div>
-            <wi-button (click)="add()" [disabled]="form.invalid" title="add to list">Add</wi-button>
+            <wi-button (click)="add()" [disabled]="form.valid" title="add to list">Add</wi-button>
         </form>
     </section>
 </section>

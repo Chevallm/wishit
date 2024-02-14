@@ -12,6 +12,7 @@ header {
     display: flex;
     align-items: center;
     padding: 20px;
+    color: $light;
 
     h1 {
         color: $light;
@@ -24,4 +25,6 @@ main {
     background-color: $background;
     flex: 1;
     padding: 50px;
+    justify-content: center;
+    align-items: center;
 }
