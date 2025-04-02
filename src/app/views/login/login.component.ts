@@ -22,20 +22,22 @@ export class LoginComponent {
   private readonly email = this.form.controls.email;
   private readonly password = this.form.controls.password;
 
-  login() {
-    console.log(this.form)
-    if (this.form.valid) {
-      const email = this.email.value!;
-      const password = this.password.value!;
-      this.loginService.loginWithEmailAndPassword(email, password).then(() => {
-        const redirect = this.route.snapshot.queryParamMap.get('redirect');
-        if (redirect) {
-          this.router.navigateByUrl(redirect);
-        }
-      });
-    } else {
+  async login() {
+    if (this.form.invalid) {
       this.form.markAllAsTouched();
+      return;
     }
+    const email = this.email.value!;
+    const password = this.password.value!;
+    await this.loginService.loginWithEmailAndPassword(email, password);
+    const redirect = this.route.snapshot.queryParamMap.get('redirect');
+    if (redirect) {
+      this.router.navigateByUrl(redirect);
+    }
+  }
+
+  connectWithGoogle() {
+    this.loginService.loginWithGoogle();
   }
 
 }

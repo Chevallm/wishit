@@ -8,12 +8,15 @@ const confirmPasswordValidator: ValidatorFn = (
   const validationErrors: ValidationErrors = {};
   const password = control.get('password');
   const confirmPassword = control.get('confirmPassword');
-  if (password?.value !== confirmPassword?.value) {
+  if (!password || !confirmPassword) {
+    throw new Error('Password/Confirm password is required');
+  }
+  if (password.value !== confirmPassword.value) {
     validationErrors['confirmPassword'] = 'Passwords don\'t match.';
-    confirmPassword?.setErrors(validationErrors)
+    confirmPassword.setErrors(validationErrors)
     return validationErrors;
   }
-  confirmPassword?.setErrors(null);
+  confirmPassword.setErrors(null);
   return null;
 }
 
@@ -31,7 +34,7 @@ const passwordValidator: ValidatorFn = (
   }
   if (password.length < 6) {
     validationErrors['length'] = 'Password must be at least 6 characters';
-  } 
+  }
   if (!lowerCaseLetters.test(password)) {
     validationErrors['lowerCaseLetters'] = 'Password must includes lower case letters';
   }
@@ -71,17 +74,20 @@ export class RegisterComponent {
   protected readonly password = this.form.controls.password;
   protected readonly confirmPassword = this.form.controls.confirmPassword;
 
-  register() {
+  async register() {
     if (this.form.valid) {
-      const email = this.email.value!;
-      const password = this.password.value!;
-      const displayedName = this.name.value!;
-      this.loginService.register(email, password).then(() => {
-        this.loginService.setDisplayedName(displayedName);
-      });
+      const email: string = this.email.value!;
+      const password: string = this.password.value!;
+      const displayedName: string = this.name.value!;
+      await this.loginService.register(email, password);
+      await this.loginService.setDisplayedName(displayedName);
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  createUserWithGoogle() {
+    this.loginService.loginWithGoogle();
   }
 
 }

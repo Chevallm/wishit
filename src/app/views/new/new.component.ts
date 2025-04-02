@@ -1,13 +1,17 @@
-import { CdkDragDrop, moveItemInArray as moveWishInList } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Wish } from 'src/app/definitions/wish';
+import {CdkDragDrop, moveItemInArray as moveWishInList} from '@angular/cdk/drag-drop';
+import {Component, inject} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Wish} from 'src/app/definitions/wish';
+import {addDoc, collection, Firestore} from "@angular/fire/firestore";
 
 @Component({
   templateUrl: './new.component.html',
   styleUrls: ['./new.component.scss']
 })
 export class NewComponent {
+
+  firestore = inject(Firestore);
+  wishlistCollection = collection(this.firestore, 'wishlist');
 
   listTitle: string = 'Untitled list';
 
@@ -49,6 +53,15 @@ export class NewComponent {
       this.wishs.push(wish);
       this.form.reset();
     }
+  }
+
+  save() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    console.log(this.form.value);
+    //addDoc(this.wishlistCollection, {...this.form.value});
   }
 
 }
