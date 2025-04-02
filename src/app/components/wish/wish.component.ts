@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Wish } from '../../definitions/wish';
 
 @Component({
-  selector: 'wi-wish',
-  templateUrl: './wish.component.html',
-  styleUrls: ['./wish.component.scss']
+    selector: 'wi-wish',
+    templateUrl: './wish.component.html',
+    styleUrls: ['./wish.component.scss'],
+    standalone: false
 })
 export class WishComponent {
 

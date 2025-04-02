@@ -3,9 +3,10 @@ import { User } from '@angular/fire/auth';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
-  selector: 'wi-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+    selector: 'wi-account',
+    templateUrl: './account.component.html',
+    styleUrls: ['./account.component.scss'],
+    standalone: false
 })
 export class AccountComponent implements OnInit {
 

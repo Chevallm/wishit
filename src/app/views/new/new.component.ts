@@ -5,8 +5,9 @@ import {Wish} from 'src/app/definitions/wish';
 import {addDoc, collection, Firestore} from "@angular/fire/firestore";
 
 @Component({
-  templateUrl: './new.component.html',
-  styleUrls: ['./new.component.scss']
+    templateUrl: './new.component.html',
+    styleUrls: ['./new.component.scss'],
+    standalone: false
 })
 export class NewComponent {
 

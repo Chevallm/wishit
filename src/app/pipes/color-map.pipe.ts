@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'colorMap'
+    name: 'colorMap',
+    standalone: false
 })
 export class ColorMapPipe implements PipeTransform {
 
