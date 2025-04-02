@@ -1,33 +1,45 @@
-<section class="flex justify-between">
+<form [formGroup]="form">
+  <section class="flex justify-between">
     <p class="list-title flex gap-x-2 items-center">
-        <input type="text" [(ngModel)]="listTitle">
+      <input type="text" formControlName="title">
     </p>
     <wi-button color="primary">
-        Save
-        <wi-icon icon="fi-rr-disk"></wi-icon>
+      Save
+      <wi-icon icon="fi-rr-disk"></wi-icon>
     </wi-button>
-</section>
-<section class="wish-list" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="drop($event)">
+  </section>
+  <section class="wish-list" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="drop($event)">
     <ng-container *ngFor="let wish of wishs">
-        <wi-wish [wish]="wish"></wi-wish>
+      <wi-wish [wish]="wish"></wi-wish>
     </ng-container>
 
     <section class="wish my-2 bg-white p-4 rounded-md shadow-sm hover:shadow-md w-full">
-        <form [formGroup]="form" (submit)="add()" class="flex items-baseline gap-4">
-            <div class="flex-1 flex flex-col">
-                <input placeholder="Item name*" required formControlName="title">
-                <section *ngIf="form.controls.title.dirty || form.controls.title.touched" class="text-red-500 italic">
-                    <span *ngIf="form.controls.title.errors?.['required']">item name is required</span>
-                </section>
-
-            </div>
-            <div class="flex-1 flex flex-col">
-                <input placeholder="Price" type="number" formControlName="price">
-                <section *ngIf="form.controls.price.dirty || form.controls.price.touched" class="text-red-500 italic">
-                    <span *ngIf="form.controls.price.errors?.['min']">price can't be negative</span>
-                </section>
-            </div>
-            <wi-button (click)="add()" [disabled]="form.valid" title="add to list">Add</wi-button>
-        </form>
+      @for (wishForm of form.controls.wishs.controls; track wishForm) {
+        <wi-wish [wish]="wishForm.value!" [creationMode]="true"></wi-wish>
+      }
+      <form [formGroup]="addWishForm" (submit)="add()" class="flex items-baseline gap-4">
+        <div class="flex-1 flex flex-col">
+          <input placeholder="Item name*" required formControlName="title">
+          @if (addWishForm.controls.title.dirty) {
+            <section class="text-red-500 italic">
+              @if (addWishForm.controls.title.errors?.['required']) {
+                <span>item name is required</span>
+              }
+            </section>
+          }
+        </div>
+        <div class="flex-1 flex flex-col">
+          <input placeholder="Price" type="number" formControlName="price">
+          @if (addWishForm.controls.price.dirty) {
+            <section class="text-red-500 italic">
+              @if (addWishForm.controls.price.errors?.['min']) {
+                <span>Price can't be negative</span>
+              }
+            </section>
+          }
+        </div>
+        <wi-button (click)="add()" [disabled]="addWishForm.valid" title="add to list">Add</wi-button>
+      </form>
     </section>
-</section>
+  </section>
+</form>

@@ -1,12 +1,16 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { User } from '@angular/fire/auth';
 import { LoginService } from 'src/app/services/login.service';
+import {RouterLink} from "@angular/router";
 
 @Component({
-    selector: 'wi-account',
-    templateUrl: './account.component.html',
-    styleUrls: ['./account.component.scss'],
-    standalone: false
+  selector: 'wi-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.scss'],
+  imports: [
+    RouterLink
+  ],
+  standalone: true
 })
 export class AccountComponent implements OnInit {
 

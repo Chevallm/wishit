@@ -4,15 +4,15 @@ import { HomeComponent } from './views/home/home.component';
 import { NewComponent } from './views/new/new.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
-import {AuthGuard, redirectUnauthorizedTo} from "@angular/fire/auth-guard";
+import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo} from "@angular/fire/auth-guard";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
-
+const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'new', component: NewComponent, canActivate: [AuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent}
+  {path: 'new', component: NewComponent, ...canActivate(redirectUnauthorizedToLogin)},
+  {path: 'login', component: LoginComponent, ...canActivate(redirectLoggedInToHome)},
+  {path: 'register', component: RegisterComponent, ...canActivate(redirectLoggedInToHome)}
 ];
 
 @NgModule({

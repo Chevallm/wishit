@@ -1,13 +1,16 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
+import {Component, inject} from '@angular/core';
+import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LoginService} from 'src/app/services/login.service';
+import {IconComponent} from "../../components/icon/icon.component";
+import {ButtonComponent} from "../../components/button/button.component";
 
 @Component({
-    selector: 'wi-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    standalone: false
+  selector: 'wi-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports: [IconComponent, ButtonComponent, ReactiveFormsModule]
 })
 export class LoginComponent {
 

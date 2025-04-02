@@ -1,10 +1,5 @@
-<ng-template *ngIf="currentUser; then signedIn; else signedOff"></ng-template>
-
-<ng-template #signedIn>
-    <a href="#" title="sign off" (click)="loginService.signOff()">{{currentUser?.displayName ?? currentUser?.email}}</a>
-</ng-template>
-
-<ng-template #signedOff>
-    <a routerLink="login">Login</a>
-</ng-template>
-
+@if (currentUser) {
+  <a href="#" title="sign off" (click)="loginService.signOff()">{{currentUser.displayName ?? currentUser.email}}</a>
+} @else {
+  <a routerLink="login">Login</a>
+}

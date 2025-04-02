@@ -5,8 +5,12 @@
             <label for="email">Email</label>
             <input type="email" id="email" autocomplete="email" formControlName="email">
             <section class="text-red-500" *ngIf="email | shouldShowErrors">
-                <p *ngIf="email.errors?.['required']">Email is required</p>
-                <p *ngIf="email.errors?.['email']">Email is malformated</p>
+              @if (email.errors?.['required']) {
+                <p>Email is required</p>
+              }
+              @if (email.errors?.['email']) {
+                <p>Email is malformated</p>
+              }
             </section>
         </section>
 
@@ -20,7 +24,9 @@
             <input type="password" id="password" autocomplete="current-password" formControlName="password">
             <section class="text-red-500" *ngIf="password | shouldShowErrors">
                 <ul>
-                    <li *ngFor="let error of (form.controls.password.errors | iterableValidationErrors)">{{error}}</li>
+                  @for (error of (form.controls.password.errors | iterableValidationErrors); track error) {
+                    <li>{{error}}</li>
+                  }
                 </ul>
             </section>
         </section>
@@ -28,9 +34,13 @@
         <section class="form-field">
             <label for="confirm-password">Confirm password</label>
             <input type="password" id="confirm-password" autocomplete="off" formControlName="confirmPassword">
-            <section class="text-red-500" *ngIf="confirmPassword | shouldShowErrors">
-                <p *ngIf="confirmPassword.errors?.['confirmPassword']">Passwords must match</p>
+          @if (confirmPassword | shouldShowErrors) {
+            <section class="text-red-500">
+              @if (confirmPassword.errors?.['confirmPassword']) {
+                <p>Passwords must match</p>
+              }
             </section>
+          }
         </section>
 
         <section class="self-center">

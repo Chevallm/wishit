@@ -1,26 +1,20 @@
-import {CdkDragDrop, moveItemInArray as moveWishInList} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, CdkDropList, moveItemInArray as moveWishInList} from '@angular/cdk/drag-drop';
 import {Component, inject} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Wish} from 'src/app/definitions/wish';
-import {addDoc, collection, Firestore} from "@angular/fire/firestore";
+import {collection, Firestore} from "@angular/fire/firestore";
+import {ButtonComponent} from "../../components/button/button.component";
+import {IconComponent} from "../../components/icon/icon.component";
+import {NgForOf} from "@angular/common";
+import {WishComponent} from "../../components/wish/wish.component";
 
 @Component({
-    templateUrl: './new.component.html',
-    styleUrls: ['./new.component.scss'],
-    standalone: false
+  templateUrl: './new.component.html',
+  styleUrls: ['./new.component.scss'],
+  standalone: true,
+  imports: [ReactiveFormsModule, CdkDropList, ButtonComponent, IconComponent, NgForOf, WishComponent]
 })
 export class NewComponent {
-
-  firestore = inject(Firestore);
-  wishlistCollection = collection(this.firestore, 'wishlist');
-
-  listTitle: string = 'Untitled list';
-
-  form = new FormGroup({
-    title: new FormControl<string>('', Validators.required),
-    price: new FormControl<string>('', Validators.min(0))
-  })
-
   wishs: Wish[] = [
     {
       title: 'Playstation 5',
@@ -36,24 +30,31 @@ export class NewComponent {
       price: 40,
     }
   ];
-
   addForm = new FormGroup({
     title: new FormControl('')
   })
+  private readonly fb = inject(FormBuilder);
+  form = this.fb.group({
+    title: this.fb.control<string>('Untitled list', Validators.required),
+    wishs: this.fb.array<Wish>([]),
+  })
+  addWishForm = this.fb.group({
+    title: this.fb.control<string>('', Validators.required),
+    price: this.fb.control<number>(0, Validators.required),
+  });
+  private readonly firestore = inject(Firestore);
+  private readonly wishlistCollection = collection(this.firestore, 'wishlist');
 
   drop(event: CdkDragDrop<string[]>): void {
     moveWishInList(this.wishs, event.previousIndex, event.currentIndex);
   }
 
   add(): void {
-    if (this.form.valid) {
-      const wish: Wish = {
-        title: this.form.controls.title.value!,
-        price: parseFloat(this.form.controls.price.value ?? '') ?? undefined
-      }
-      this.wishs.push(wish);
-      this.form.reset();
-    }
+    const wishForm = this.fb.group({
+      title: this.fb.control<string>('', Validators.required),
+      price: this.fb.control<number>(0, Validators.required),
+    });
+    //this.form.controls.wishs.push();
   }
 
   save() {

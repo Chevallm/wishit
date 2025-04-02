@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
     selector: 'wi-input',
     templateUrl: './input.component.html',
     styleUrls: ['./input.component.scss'],
-    standalone: false
+    standalone: true
 })
 export class InputComponent {
 

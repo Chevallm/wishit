@@ -1,21 +1,15 @@
-import { Component, Pipe, PipeTransform, Input } from '@angular/core';
-
-@Pipe({
-    name: 'fi',
-    standalone: false
-})
-export class FiPipe implements PipeTransform {
-
-  transform(value: string, ...args: any[]): string {
-    return `fi ${value}`;
-  }
-}
+import {Component, Input} from '@angular/core';
+import {NgClass} from "@angular/common";
+import {FiPipe} from "../../pipes/fi.pipe";
 
 @Component({
-    selector: 'wi-icon',
-    templateUrl: './icon.component.html',
-    styleUrls: ['./icon.component.scss'],
-    standalone: false
+  selector: 'wi-icon',
+  templateUrl: './icon.component.html',
+  styleUrls: ['./icon.component.scss'],
+  imports: [
+    NgClass, FiPipe
+  ],
+  standalone: true
 })
 export class IconComponent {
 

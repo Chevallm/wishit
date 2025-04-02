@@ -1,6 +1,19 @@
-import { Component, inject } from '@angular/core';
-import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { LoginService } from 'src/app/services/login.service';
+import {Component, inject} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
+import {LoginService} from 'src/app/services/login.service';
+import {IconComponent} from "../../components/icon/icon.component";
+import {ButtonComponent} from "../../components/button/button.component";
+import {NgIf} from "@angular/common";
+import {ShouldShowErrorsPipe} from "../../pipes/should-show-errors.pipe";
+import {RouterLink} from "@angular/router";
+import {IterableValidationErrorsPipe} from "../../pipes/iterable-validation-errors.pipe";
 
 const confirmPasswordValidator: ValidatorFn = (
   control: AbstractControl
@@ -51,12 +64,14 @@ const passwordValidator: ValidatorFn = (
 }
 
 @Component({
-    selector: 'wi-register',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.scss'],
-    standalone: false
+  selector: 'wi-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
+  standalone: true,
+  imports: [IconComponent, ButtonComponent, ReactiveFormsModule, NgIf, ShouldShowErrorsPipe, RouterLink, IterableValidationErrorsPipe]
 })
 export class RegisterComponent {
+
 
   private readonly fb = inject(FormBuilder);
   private readonly loginService = inject(LoginService);
@@ -74,6 +89,7 @@ export class RegisterComponent {
   protected readonly name = this.form.controls.name;
   protected readonly password = this.form.controls.password;
   protected readonly confirmPassword = this.form.controls.confirmPassword;
+
 
   async register() {
     if (this.form.valid) {

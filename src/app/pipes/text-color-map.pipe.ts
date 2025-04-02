@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'textColorMap',
-    standalone: false
+  standalone: true
 })
 export class TextColorMapPipe implements PipeTransform {
 

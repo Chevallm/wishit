@@ -1,5 +1,4 @@
-@import '../../../colors';
-@import '../../../styles.scss';
+@use 'colors.scss';
 
 .wi-btn {
     border: 1px solid rgba(0,0,0,.2);
